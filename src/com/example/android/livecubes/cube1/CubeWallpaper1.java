@@ -48,7 +48,8 @@ public class CubeWallpaper1 extends WallpaperService {
         return new CubeEngine();
     }
 
-    class CubeEngine extends Engine {
+    class CubeEngine extends Engine 
+    {
 
         private final Paint mPaint = new Paint();
         private float mOffset;

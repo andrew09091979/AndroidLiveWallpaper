@@ -49,12 +49,21 @@
             </intent-filter>
             <meta-data android:name="android.service.wallpaper" android:resource="@xml/cube2" />
         </service>
+      
         <activity
             android:label="@string/cube2_settings"
             android:name=".cube2.CubeWallpaper2Settings"
             android:theme="@android:style/Theme.Light.WallpaperSettings"
             android:exported="true">
         </activity>
-
+        <service
+            android:label="@string/wallpaper_cube3"
+            android:name=".cube3.Cubewallpaper3"
+            android:permission="android.permission.BIND_WALLPAPER">
+            <intent-filter>
+                <action android:name="android.service.wallpaper.WallpaperService" />
+            </intent-filter>
+            <meta-data android:name="android.service.wallpaper" android:resource="@xml/cube1" />
+        </service>  
     </application>
 </manifest>
