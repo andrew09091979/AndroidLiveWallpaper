@@ -35,7 +35,8 @@ public class Cubewallpaper3 extends WallpaperService {
     	private final Paint mPaint = new Paint();
     	private Integer iArr[];
     	private boolean isDone;
-    	InsertionMethodSort<Integer> sort;
+    	//InsertionMethodSort<Integer> sort;
+    	SelectMethodSort<Integer> sort;
 /*    	
         private final Runnable mDrawCube = new Runnable() {
             public void run() {
@@ -146,7 +147,8 @@ public class Cubewallpaper3 extends WallpaperService {
         	for (int i=0;i<ArrLen;i++)
         		iArr[i] = Math.abs(rnd.nextInt()%10);
         	Log.d("drawFrame","isDone");
-        	sort = new InsertionMethodSort<Integer>(this, iArr);       	
+        	//sort = new InsertionMethodSort<Integer>(this, iArr);
+        	sort = new SelectMethodSort<Integer>(this, iArr);
         }
         void drawTouchPoint(boolean isDone1)
         {

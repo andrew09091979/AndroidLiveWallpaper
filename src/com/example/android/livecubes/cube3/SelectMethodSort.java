@@ -13,28 +13,58 @@ public class SelectMethodSort<cl> {
 	private int mR;
 	private cl iArr[];
 	private int mCurrMinPos;
+	private CubeEngine cubeEngine;
+	private final Handler mHandler = new Handler();
+    private final Runnable Turn = new Runnable() 
+    {
+        public void run() 
+        {
+            DoTurn();
+        }
+    };
+    SelectMethodSort(CubeEngine cubeEngn, cl iArrToSort[])
+	{
+		cubeEngine = cubeEngn;
+		iArr = iArrToSort;
+		init__();
+		DoTurn();
+	};	    
 	SelectMethodSort(cl iArrToSort[])
 	{
-		mI = 0;
-		mCurrMinPos = mI;
 		iArr = iArrToSort;
-		mJ = mI+1;
-		mR = iArr.length;
-		mTurn = 0;
+		init__();
 	};
+
 	void Init(cl iArrToSort[])
+	{
+		iArr = iArrToSort;
+		init__();
+	};
+	private void init__()
 	{
 		mI = 0;
 		mCurrMinPos = mI;
-		iArr = iArrToSort;
 		mJ = mI+1;
 		mR = iArr.length;
-		mTurn = 0;
-	};
+		mTurn = 0;		
+	}		
+    private void Wait()
+    {
+        long endTime = System.currentTimeMillis() + 2000;
+        while (System.currentTimeMillis() < endTime)
+        {}
+    }	
 	cl [] GetCurrState()
 	{
 		return iArr;
 	};
+	private void DoTurn()
+	{
+		boolean res=MakeTurn();
+        mHandler.removeCallbacks(Turn);
+        if (!res)
+        	mHandler.postDelayed(Turn, 2000);		
+	};	
 	boolean MakeTurn()
 	{
 		int turnToBreak = 0;
@@ -71,11 +101,13 @@ public class SelectMethodSort<cl> {
 			cl Temp = iArr[mI];
 			iArr[mI] = iArr[mCurrMinPos];
 			iArr[mCurrMinPos] = Temp;
-			Log.d("ret true", Integer.toString(mI));
+			Log.d("ret false", Integer.toString(mI));
+			cubeEngine.drawTouchPoint(false);
 			mI++;
-			return true;			
+			return false;			
 		}
-	return false;
+	cubeEngine.drawTouchPoint(true);		
+	return true;
 	};
 	int GetCurrentPos()
 	{
@@ -97,6 +129,12 @@ class InsertionMethodSort<cl>
             DoTurn();
         }
     };
+    private void Wait()
+    {
+        long endTime = System.currentTimeMillis() + 2000;
+        while (System.currentTimeMillis() < endTime)
+        {}
+    }
 	InsertionMethodSort(CubeEngine cubeEngn, cl iArrToSort[])
 	{
 		cubeEngine = cubeEngn;
@@ -128,9 +166,10 @@ class InsertionMethodSort<cl>
 	};
 	private void DoTurn()
 	{
-		MakeTurn();
+		boolean res=MakeTurn();
         mHandler.removeCallbacks(Turn);
-        mHandler.postDelayed(Turn, 2000);		
+        if (!res)
+        	mHandler.postDelayed(Turn, 2000);		
 	};
 	boolean MakeTurn()
 	{
@@ -153,9 +192,9 @@ class InsertionMethodSort<cl>
 				mI = 2;
 				bFirstStage = false;
 			}
-			cubeEngine.drawTouchPoint(true);
-			Log.d("returning true", Integer.toString(mI));	
-			return true;
+			cubeEngine.drawTouchPoint(false);
+			Log.d("returning false", Integer.toString(mI));	
+			return false;
 		}
 		else
 		{
@@ -166,16 +205,17 @@ class InsertionMethodSort<cl>
 				while(v.hashCode()<iArr[j-1].hashCode())
 				{
 					iArr[j] = iArr[j-1];
-					cubeEngine.drawTouchPoint(true);
+					cubeEngine.drawTouchPoint(false);
+					Wait();
 					--j;
 				}
 				iArr[j] = v;
-				++mI;
-				return true;
+				cubeEngine.drawTouchPoint(false);
+				++mI;	
+				return false;
 			}
 		}
-		cubeEngine.drawTouchPoint(false);
-        mHandler.removeCallbacks(Turn);		
-		return false;
+		cubeEngine.drawTouchPoint(true);		
+		return true;
 	};	
 }
