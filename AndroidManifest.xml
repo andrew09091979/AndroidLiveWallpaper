@@ -29,7 +29,7 @@
     <application
         android:label="@string/wallpapers"
         android:icon="@drawable/ic_launcher_wallpaper">
-<!--  
+ <!--
         <service
             android:label="@string/wallpaper_cube1"
             android:name=".cube1.CubeWallpaper1"
@@ -56,7 +56,7 @@
             android:theme="@android:style/Theme.Light.WallpaperSettings"
             android:exported="true">
         </activity>
--->        
+ -->     
         <service
             android:label="@string/wallpaper_cube3"
             android:name=".cube3.Cubewallpaper3"
@@ -64,7 +64,13 @@
             <intent-filter>
                 <action android:name="android.service.wallpaper.WallpaperService" />
             </intent-filter>
-            <meta-data android:name="android.service.wallpaper" android:resource="@xml/cube1" />
-        </service>  
+            <meta-data android:name="android.service.wallpaper" android:resource="@xml/cube3" />
+        </service> 
+        <activity
+            android:label="@string/cube2_settings"
+            android:name=".cube3.SortSettings"
+            android:theme="@android:style/Theme.Light.WallpaperSettings"
+            android:exported="true">
+        </activity>        
     </application>
 </manifest>

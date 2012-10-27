@@ -1,0 +1,12 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+        android:title="@string/cube2_settings"
+        android:key="sort_settings">
+
+    <ListPreference
+            android:key="sort_method"
+            android:title="@string/sort_settings_title"
+            android:summary="@string/sort_settings_summary"
+            android:entries="@array/SortingMethods"
+            android:entryValues="@array/SortingMethods_methodprefix" />
+
+</PreferenceScreen>

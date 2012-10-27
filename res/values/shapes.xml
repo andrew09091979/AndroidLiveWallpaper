@@ -28,7 +28,22 @@
         <item>"cube"</item>
         <item>"dodecahedron"</item>
     </string-array>
-
+    <string-array name="SortingMethods">
+        <item>"Insertion Method"</item>
+        <item>"Selection Method"</item>
+    </string-array>
+ 
+    <string-array name="SortingMethods_methodprefix">
+        <item>"0"</item>
+        <item>"1"</item>
+    </string-array>
+       
+<!-- 
+    <integer-array name="SortingMethods_methodprefix">
+        <item>0</item>
+        <item>1</item>
+    </integer-array>
+-->     
     <!-- x,y,z tuples for the points defining the object -->
     <!-- stored as strings for easier human readability -->
     <string-array name="cubepoints">

@@ -35,4 +35,6 @@
     <string name="cube2_settings">Settings</string>
     <string name="cube2_settings_title">Select shape</string>
     <string name="cube2_settings_summary">Choose whether to display a cube or a dodecahedron</string>
+	<string name="sort_settings_title">Select method</string>    
+    <string name="sort_settings_summary">Choose sorting method</string>
 </resources>

@@ -5,8 +5,14 @@ import com.example.android.livecubes.cube3.Cubewallpaper3.CubeEngine;
 import android.util.Log;
 import android.os.Handler;
 import android.service.wallpaper.WallpaperService.Engine;
-
-public class SelectMethodSort<cl> {
+abstract class SortMethod<cl>
+{
+	abstract void Init(cl iArrToSort[]);
+	abstract cl[] GetCurrState();
+	abstract String GetMethodName();
+}
+public class SelectMethodSort<cl> extends SortMethod<cl>
+{
 	private int mTurn;
 	private int mI;
 	private int mJ;
@@ -14,6 +20,7 @@ public class SelectMethodSort<cl> {
 	private cl iArr[];
 	private int mCurrMinPos;
 	private CubeEngine cubeEngine;
+	private static final String MethodName="Selection Method";
 	private final Handler mHandler = new Handler();
     private final Runnable Turn = new Runnable() 
     {
@@ -34,7 +41,7 @@ public class SelectMethodSort<cl> {
 		iArr = iArrToSort;
 		init__();
 	};
-
+	@Override
 	void Init(cl iArrToSort[])
 	{
 		iArr = iArrToSort;
@@ -54,6 +61,7 @@ public class SelectMethodSort<cl> {
         while (System.currentTimeMillis() < endTime)
         {}
     }	
+	@Override
 	cl [] GetCurrState()
 	{
 		return iArr;
@@ -101,7 +109,6 @@ public class SelectMethodSort<cl> {
 			cl Temp = iArr[mI];
 			iArr[mI] = iArr[mCurrMinPos];
 			iArr[mCurrMinPos] = Temp;
-			Log.d("ret false", Integer.toString(mI));
 			cubeEngine.drawTouchPoint(false);
 			mI++;
 			return false;			
@@ -113,14 +120,20 @@ public class SelectMethodSort<cl> {
 	{
 		return mCurrMinPos;
 	};
+	@Override
+	String GetMethodName()
+	{
+		return MethodName;
+	}
 };
-class InsertionMethodSort<cl>
+class InsertionMethodSort<cl> extends SortMethod<cl>
 {
 	private cl iArr[];
 	private int mCurrMinPos;
 	private boolean bFirstStage;
 	private int mI,mR;
 	private CubeEngine cubeEngine;
+	private static final String MethodName="Insertion Method";	
 	private final Handler mHandler = new Handler();
     private final Runnable Turn = new Runnable() 
     {
@@ -147,7 +160,7 @@ class InsertionMethodSort<cl>
 		iArr = iArrToSort;
 		init__();
 	};
-
+	@Override
 	void Init(cl iArrToSort[])
 	{
 		iArr = iArrToSort;
@@ -159,9 +172,9 @@ class InsertionMethodSort<cl>
 		mR = iArr.length-1;
 		mI = mR;	
 	}
+	@Override
 	cl [] GetCurrState()
 	{
-		Log.d("GetCurrState", "Getting current state");
 		return iArr;
 	};
 	private void DoTurn()
@@ -177,13 +190,11 @@ class InsertionMethodSort<cl>
 		{
 			if (mI>0)
 			{
-				Log.d("bFirstStage true", Integer.toString(mI));
 				if(iArr[mI].hashCode()<iArr[mI-1].hashCode())
 				{
 					cl Temp = iArr[mI];
 					iArr[mI] = iArr[mI-1];
-					iArr[mI-1] = Temp;
-					Log.d("exchanged", Integer.toString(mI));					
+					iArr[mI-1] = Temp;				
 				}
 				--mI;
 			}
@@ -193,7 +204,6 @@ class InsertionMethodSort<cl>
 				bFirstStage = false;
 			}
 			cubeEngine.drawTouchPoint(false);
-			Log.d("returning false", Integer.toString(mI));	
 			return false;
 		}
 		else
@@ -217,5 +227,33 @@ class InsertionMethodSort<cl>
 		}
 		cubeEngine.drawTouchPoint(true);		
 		return true;
+	}
+	@Override
+	String GetMethodName() 
+	{
+		return MethodName;
 	};	
+}
+
+class BubbleSortMethod<cl> extends SortMethod<cl>
+{
+	private cl iArr[];
+	@Override
+	void Init(Object[] iArrToSort) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	cl[] GetCurrState() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	String GetMethodName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }
